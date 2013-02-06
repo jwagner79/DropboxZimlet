@@ -1,0 +1,7 @@
+<zimletConfig name="com_zimbra_dropbox" version="1.0">
+    <global>
+        <property name="ChooserAppKey">YOUR VALUE</property>
+        <property name="ChooserAppKey">YOUR VALUE</property>
+        <property name="ZimbraAppSecret">YOUR VALUE</property>      
+    </global>
+</zimletConfig>
