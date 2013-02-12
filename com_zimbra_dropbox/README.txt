@@ -1,16 +1,21 @@
 #Dropbox Zimlet
-This is a zimlet for the Zimbra Web Collaboration Suite (http://www.zimbra.com) that provides integration with Dropbox (http://dropbox.com).  This zimlet makes use of the Dropbox Chooser (https://www.dropbox.com/developers/chooser) and the Dropbox REST API (https://www.dropbox.com/developers).
+This is a zimlet for the Zimbra Web Collaboration Suite (http://www.zimbra.com) that provides integration with Dropbox (http://dropbox.com).  This zimlet makes use of the Dropbox Chooser (https://www.dropbox.com/developers/chooser) and the Dropbox App folder API (https://www.dropbox.com/developers).
 
 #Requirements
-In order to use this zimlet you need to create an account on Dropbox and register an app.  Registering will get you app keys for both the Chooser API and the REST API.  You'll then register the keys in the config_template.xml:
- <property name="ChooserAppKey">
- <property name="ZimbraAppKey">
- <property name="ZimbraAppSecret">
- 
+In order to use this zimlet you need to create an account on Dropbox and register an app.  Registering will get you app keys for both the Chooser API and the App folder API.  
 In order to get your Dropbox app enabled for production you'll need to go through the Dropbox approval process.  The approval process requires that Dropbox verify your app through an account they can login to, screenshots or screencasts.
 
 Currently this zimlet only works with a Zimbra 8 install for the Ajax client.
 
+#Installation
+- To install this zimlet create a new folder on your computer and unzip the zimlet zipfile.
+- You'll then register the keys in the config_template.xml:
+ <property name="ChooserAppKey">YOUR VALUE</property>
+ <property name="ZimbraAppKey">YOUR VALUE</property>
+ <property name="ZimbraAppSecret">YOUR VALUE</property>
+- Then create a new zipfile containing all the files you previously unzipped in a zipfile called com_zimbra_dropbox.zip
+- Deploy the new zipfile on your Zimbra 8 server
+ 
 #What it does
 The Dropbox Zimlet provides two features -- Attach to a message and Save an attachment.
 
