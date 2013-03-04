@@ -82,17 +82,18 @@ function() {
 	    success: function(files) {
 		    var view = appCtxt.getCurrentView();
 		    var editor = view.getHtmlEditor();
+                    var firstFile = files[0];
 		    //editor.focus();
 		    var editorContent =  editor.getContent();
 		    var isHtml = view && view.getComposeMode() === DwtHtmlEditor.HTML;
 		    if (isHtml) {
-			    var thumbnail = files[0].thumbnails && files[0].thumbnails["64x64"] ? files[0].thumbnails["64x64"] : files[0].icon;
+			    var thumbnail = firstFile[0].thumbnails && firstFile[0].thumbnails["64x64"] ? firstFile[0].thumbnails["64x64"] : firstFile[0].icon;
 
 			    var div = '<div style="background-color:rgb(245, 245, 245); padding:10px 14px; margin-right:10px; color:rgb(34, 34, 34); '; 
                 div+='font-family:arial; font-style:normal; font-weight:bold; font-size:13px; cursor:default; border:1px solid rgb(221, 221, 221); float:left;">';
-				div+='<a href="' + files[0].link + '" target="_blank"><img style="padding-bottom:7px; border:none;" width="64" height="64" src="' + thumbnail + '"></a>';
+				div+='<a href="' + firstFile[0].link + '" target="_blank"><img style="padding-bottom:7px; border:none;" width="64" height="64" src="' + thumbnail + '"></a>';
 				div+='<div dir="ltr" title="File Name" style="color:rgb(17, 85, 204); text-decoration:initial; vertical-align:bottom;">';
-			    div+='<a href="' + files[0].link + '" target="_blank" style=" display:inline-block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-decoration:none; text-align:center; cursor:pointer;padding:1px 0; border:none; max-width:200px;">' + files[0].name + '</div></a>';
+			    div+='<a href="' + firstFile[0].link + '" target="_blank" style=" display:inline-block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-decoration:none; text-align:center; cursor:pointer;padding:1px 0; border:none; max-width:200px;">' + firstFile[0].name + '</div></a>';
 				div+='</div><div style="clear:both"><br/></div>';
   
 			    var ed = editor.getEditor();
@@ -103,7 +104,7 @@ function() {
 			    ed.execCommand('mceInsertRawHTML', false, div, {skip_undo : 1});
 		    }
 		    else {
-			    view.getHtmlEditor().setContent(editorContent + "\n" + files[0].name + " : " + files[0].link + "\n");
+			    view.getHtmlEditor().setContent(editorContent + "\n" + firstFile[0].name + " : " + firstFiles[0].link + "\n");
 		    }
 	    },
 		cancel: function() {
