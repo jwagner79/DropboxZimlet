@@ -54,7 +54,7 @@ Dropbox.baseUrl = "https://www.dropbox.com"; //Leave this here. :-)
                     Dropbox.addListener(btn, "click", function(evt) {
                         Dropbox.choose({
                             success: function(files) {
-                                el.value = files[0].url;
+                                el.value = files[0].link;
                                 el.files = files;
 
                                 if( document.createEvent ) {
@@ -83,7 +83,7 @@ Dropbox.baseUrl = "https://www.dropbox.com"; //Leave this here. :-)
     };
 
     if (document.readyState === "complete") {
-        DOMContentLoaded();
+        setTimeout(DOMContentLoaded, 0);
     }
     if (document.addEventListener) {
         document.addEventListener("DOMContentLoaded", DOMContentLoaded, false);
@@ -116,10 +116,12 @@ Dropbox.removeListener = function(obj, event, handler) {
 Dropbox._chooserUrl = function(options) {
     var linkType = options.linkType == 'direct' ? 'direct' : 'preview'
     var triggerSrc = options._trigger || 'js';  //used for logging.  default is 'js'
+    var multiselect = Boolean(options.multiselect);
     return this.baseUrl + "/chooser?origin=" + encodeURIComponent(window.location.protocol + "//" + window.location.host)
                         + "&app_key=" + encodeURIComponent(this.appKey)
                         + "&link_type=" + linkType
-                        + "&trigger=" + triggerSrc;
+                        + "&trigger=" + triggerSrc
+                        + "&multiselect=" + multiselect;
 };
 
 Dropbox._createWidgetElement = function(options) {
@@ -137,7 +139,7 @@ Dropbox._handleMessageEvent = function(evt, closefn, success, cancel) {
     var data = JSON.parse(evt.data);
     if (data.method == "files_selected") {
         if (closefn) closefn();
-        if (success) success([data.params]);
+        if (success) success(data.params);
     } else if (data.method == "close_dialog") {
         if (closefn) closefn();
         if (cancel) cancel();
@@ -153,13 +155,13 @@ Dropbox.createWidget = function(options) {
     };
     Dropbox.addListener(window, "message", widget._handler);
     return widget;
-}
+};
 
 Dropbox.cleanupWidget = function(widget) {
     if (!widget._handler) throw "Invalid widget!";
     Dropbox.removeListener(window, "message", widget._handler);
     delete widget._handler;
-}
+};
 
 Dropbox.choose = function(options) {
     if (typeof options == "undefined") {
@@ -202,7 +204,8 @@ Dropbox.choose = function(options) {
         var h = 440;
         var left = (window.screenX || window.screenLeft) + ((window.outerWidth || document.documentElement.offsetWidth) - w) / 2;
         var top = (window.screenY || window.screenTop) + ((window.outerHeight || document.documentElement.offsetHeight) - h) / 2;
-        var popup = window.open(this._chooserUrl(options), "dropbox", "width=" + w + ",height=" + h + ",left=" + left + ",top=" + top + ",resizable=no,location=yes");
+        var popup = window.open(this._chooserUrl(options), "dropbox", "width=" + w + ",height=" + h + ",left=" + left + ",top=" + top + ",resizable=yes,location=yes");
+        popup.focus();
         var handler = function(evt) {
             if (evt.source == popup || evt.source == Dropbox._ieframe.contentWindow) {
                 Dropbox._handleMessageEvent(evt, function() {
@@ -215,5 +218,4 @@ Dropbox.choose = function(options) {
     }
 };
 
-Dropbox.attach = Dropbox.choose
-
+Dropbox.attach = Dropbox.choose;
