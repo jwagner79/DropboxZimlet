@@ -1,5 +1,4 @@
-<zimlet name="com_zimbra_dropbox" version="1.0" target="main compose-window view-window" label="${msg.zimletLabel}" description="${msg.description}">
-    <include>dropbox.js</include>
+<zimlet name="com_zimbra_dropbox" version="1.3" target="main compose-window view-window" label="${msg.zimletLabel}" description="${msg.description}">
     <include>zimbraDropBox.js</include>
     <handlerObject>com_zimbra_dropbox_HandlerObject</handlerObject>
 </zimlet>

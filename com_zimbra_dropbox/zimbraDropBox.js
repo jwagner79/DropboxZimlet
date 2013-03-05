@@ -28,6 +28,7 @@ com_zimbra_dropbox_HandlerObject.prototype.constructor = com_zimbra_dropbox_Hand
 var DropboxZimlet = com_zimbra_dropbox_HandlerObject;
 
 DropboxZimlet.prototype.init = function() {
+	this._loadDropboxChooser();
 	this._zimbraAppSecret = this.getConfig("ZimbraAppSecret");
 	appCtxt.cacheSet("zimbraDropboxAppSecret", this._zimbraAppSecret);
 	this._zimbraAppKey = this.getConfig("ZimbraAppKey");
@@ -320,4 +321,13 @@ function(result) {
 		appCtxt.getAppController().setStatusMsg(DropboxZimlet.savedFile, ZmStatusView.LEVEL_INFO);
 	}
 	return;
+};
+
+// Loads the google maps api
+DropboxZimlet.prototype._loadDropboxChooser = function() {
+	var script = document.createElement("script");
+	script.type = "text/javascript";
+	script.src = "https://www.dropbox.com/static/api/1/dropbox.js";
+	script.id = "dropbox_chooser";
+	document.body.appendChild(script);
 };
