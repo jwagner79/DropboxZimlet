@@ -323,7 +323,7 @@ function(result) {
 	return;
 };
 
-// Loads the google maps api
+// Loads the dropbox api
 DropboxZimlet.prototype._loadDropboxChooser = function() {
 	var script = document.createElement("script");
 	script.type = "text/javascript";
